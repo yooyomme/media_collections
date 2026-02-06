@@ -74,7 +74,7 @@ async def update_user(db: AsyncSession, user_id: uuid.UUID, data: Union[UserPerm
         uid = str(user_id)
         existing_user = await db.execute(Select(User).where(User.id == uid))
         user_for_update = existing_user.scalar_one()
-        data_for_update = data.model_dump()
+        data_for_update = data.model_dump(exclude_unset=True)
         for key, value in data_for_update.items():
             setattr(user_for_update, key, value)
         await db.commit()

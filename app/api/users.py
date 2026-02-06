@@ -68,7 +68,8 @@ async def refresh_access_token(refresh_token: str,
         raise HTTPException(status_code=400, detail="Incorrect refresh token")
 
 
-@router.get("/all", response_model=List[UserResponseSchema], summary="Получить всех пользователей", description="Admin only. For editing and testing.")
+@router.get("/all", response_model=List[UserResponseSchema],
+            summary="Получить всех пользователей", description="Admin only. For editing and testing.")
 async def get_all_users(db: AsyncSession = Depends(database.get_db),
                         admin: User = Depends(get_current_admin)):
     users_list = await users.get_users(db)
@@ -94,7 +95,7 @@ async def update_user_by_id(user_id: uuid.UUID,
     return user
 
 
-@router.delete("/{user_id}", status_code=204, summary="Удалить учетную запись")
+@router.delete("/{user_id}",  status_code=status.HTTP_204_NO_CONTENT, summary="Удалить учетную запись")
 async def delete_user_by_id(user_id: uuid.UUID,
                             db: AsyncSession = Depends(database.get_db),
                             user: User = Depends(get_current_user)):
@@ -104,7 +105,8 @@ async def delete_user_by_id(user_id: uuid.UUID,
     return user
 
 
-@router.patch("/{user_id}/grant_permissions", response_model=UserResponseSchema, summary="Выдать или забрать права у пользователя", description="Admin only. For editing and testing.")
+@router.patch("/{user_id}/grant_permissions", response_model=UserResponseSchema,
+              summary="Выдать или забрать права у пользователя", description="Superuser only.")
 async def grant_permissions_for_user(user_id: uuid.UUID,
                                      data: UserPermissionsInSchema,
                                      db: AsyncSession = Depends(database.get_db),
