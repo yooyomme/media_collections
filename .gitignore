@@ -1,1 +1,12 @@
 .env
+.git
+.idea
+
+backend/static/uploads/avatars/*
+!backend/static/uploads/avatars/.gitkeep
+
+backend/static/uploads/covers/*
+!backend/static/uploads/covers/.gitkeep
+
+node_modules
+dist
