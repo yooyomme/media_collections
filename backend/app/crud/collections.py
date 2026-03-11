@@ -95,7 +95,8 @@ async def update_collection(db: AsyncSession, collection_id: uuid.UUID, collecti
         collection_for_update = existing_collection.scalar_one()
         data_for_update = collection_data.model_dump(exclude_unset=True, exclude={"user_id"})
         for key, value in data_for_update.items():
-            debug_logger.warning(f"{key}: {value}")
+            if (key == "title") and (value == "" or value.strip() == ""):  # если title из одних пробелов или пустой, заменяем на Коллекция
+                value = "Коллекция"
             setattr(collection_for_update, key, value)
         await db.commit()
         await db.refresh(collection_for_update)

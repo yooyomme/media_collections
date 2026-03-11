@@ -1005,6 +1005,19 @@ button:hover {
     align-items: flex-start;
 }
 
+.edit-input-title {
+    background: var(--alt-card-bd);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    padding: 12px;
+    width: 100%;
+    resize: none;
+    outline: none;
+    font-family: inherit;
+}
+
 .edit-input-desc {
     background: var(--alt-card-bd);
     border: 1px solid var(--accent-color);
