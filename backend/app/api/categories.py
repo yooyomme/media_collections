@@ -11,9 +11,8 @@ from app.crud import categories
 router = APIRouter(prefix="/categories", tags=["🗂 Categories"])
 
 @router.get("/", response_model=List[CategoryResponseSchema],
-            summary="Все категории", description="Admin only. For testing and editing.")
-async def get_categories(db: AsyncSession = Depends(database.get_db),
-                         admin: User = Depends(get_current_admin)):
+            summary="Все категории")
+async def get_categories(db: AsyncSession = Depends(database.get_db)):
     categories_list = await categories.get_categories(db)
     return categories_list
 
